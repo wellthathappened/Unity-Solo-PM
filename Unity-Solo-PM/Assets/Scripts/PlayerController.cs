@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         jumpRay = new Ray(transform.position, -transform.up);
         rb = GetComponent<Rigidbody>();
         playerCam = Camera.main;
-        weaponSlot = playerCam.transform.GetChild(0);
+        weaponSlot = transform.GetChild(0);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
