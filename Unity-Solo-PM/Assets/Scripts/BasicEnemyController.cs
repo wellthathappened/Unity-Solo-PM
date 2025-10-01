@@ -43,4 +43,6 @@ public class BasicEnemyController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    
 }
