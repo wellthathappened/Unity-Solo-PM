@@ -3,6 +3,7 @@ using UnityEngine.AI;
 public class BasicEnemyController : MonoBehaviour
 {
     PlayerController player;
+    Animator myAnim;
 
     [Header("Logic")]
     NavMeshAgent agent;
@@ -17,6 +18,7 @@ public class BasicEnemyController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        myAnim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
@@ -32,7 +34,16 @@ public class BasicEnemyController : MonoBehaviour
         else
         {
             if (isFollowing)
+            {
+                agent.isStopped = false;
                 agent.destination = player.transform.position;
+                myAnim.SetBool("isAttacking", true);
+            }
+            else
+            {
+                agent.isStopped = true;
+                myAnim.SetBool("isAttacking", false);
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
