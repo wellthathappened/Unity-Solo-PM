@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
 {
     PlayerController player;
 
+    GameObject playerUI;
     GameObject weaponUI;
     GameObject pauseMenu;
+    GameObject KeyPad;
 
     Image healthBar;
     TextMeshProUGUI ammoCounter;
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI fireMode;
 
     public bool isPaused = false;
+    public bool doorCodeEntered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,9 +27,13 @@ public class GameManager : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
+            playerUI = GameObject.FindGameObjectWithTag("player_ui");
+
             weaponUI = GameObject.FindGameObjectWithTag("weaponUI");
             pauseMenu = GameObject.FindGameObjectWithTag("ui_pause");
+            KeyPad = GameObject.FindGameObjectWithTag("kp_ui");
 
+            KeyPad.SetActive(false);
             pauseMenu.SetActive(false);
 
             healthBar = GameObject.FindGameObjectWithTag("ui_health").GetComponent<Image>();
@@ -80,6 +87,23 @@ public class GameManager : MonoBehaviour
             else
                 weaponUI.SetActive(false);
         }
+    }
+
+    public void EnableKeypad()
+    {
+        Pause();
+
+        pauseMenu.SetActive(false);
+        playerUI.SetActive(false);
+        KeyPad.SetActive(true);
+    }
+
+    public void DisableKeypad()
+    {
+        playerUI.SetActive(true);
+        KeyPad.SetActive(false);
+
+        Resume();
     }
 
     public void Pause()

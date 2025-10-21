@@ -44,6 +44,7 @@ public class Weapon : MonoBehaviour
     {
         if(canFire && !reloading && clip > 0 && weaponID > -1)
         {
+            
             weaponSpeaker.Play();
             GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
             p.GetComponent<Rigidbody>().AddForce(firingDirection.transform.forward * projVelocity);

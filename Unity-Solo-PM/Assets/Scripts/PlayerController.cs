@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(interactRay, out interactHit, interactDistance))
         {
-            if (interactHit.collider.tag == "weapon")
+            if (interactHit.collider.tag == "weapon" || interactHit.collider.tag == "keypad")
             {
                 pickupObj = interactHit.collider.gameObject;
             }
@@ -112,21 +112,28 @@ public class PlayerController : MonoBehaviour
             if (!currentWeapon.reloading)
                 currentWeapon.reload();
     }
-    public void Interact()
+    public void Interact(InputAction.CallbackContext context)
     {
-        if (pickupObj)
+        if (context.ReadValueAsButton())
         {
-            if (pickupObj.tag == "weapon")
+            if (pickupObj)
             {
-                if (currentWeapon)
-                    DropWeapon();
+                if (pickupObj.tag == "weapon")
+                {
+                    if (currentWeapon)
+                        DropWeapon();
 
-                pickupObj.GetComponent<Weapon>().equip(this);
+                    pickupObj.GetComponent<Weapon>().equip(this);
+                }
+                else if (pickupObj.tag == "keypad")
+                {
+                    GameObject.FindGameObjectWithTag("gm").GetComponent<GameManager>().EnableKeypad();
+                }
+                pickupObj = null;
             }
-            pickupObj = null;
+            else if (currentWeapon)
+                Reload();
         }
-        else
-            Reload();
     }
     public void DropWeapon()
     {
