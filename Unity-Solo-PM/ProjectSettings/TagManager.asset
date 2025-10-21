@@ -17,6 +17,10 @@ TagManager:
   - gm
   - weaponUI
   - ui_pause
+  - key_screen
+  - kp_ui
+  - keypad
+  - player_ui
   layers:
   - Default
   - TransparentFX
