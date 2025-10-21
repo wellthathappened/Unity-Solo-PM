@@ -10,7 +10,7 @@ public class KeyPad : MonoBehaviour
 
     string userEntry;
 
-    string validCode = "0451";
+    public string validCode = "0451";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
